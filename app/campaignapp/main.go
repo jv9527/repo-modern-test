@@ -28,7 +28,6 @@ func main() {
 	router := initHttpRouter(*handlerCampaign)
 
 	http.ListenAndServe(":9000", router)
-
 }
 
 func initConfig(env string) *Config {

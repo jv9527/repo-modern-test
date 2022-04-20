@@ -4,31 +4,30 @@ import (
 	iCampaign "github.com/tokopedia/go-test/domain/campaign/interfaces"
 	"github.com/tokopedia/go-test/domain/campaign/model"
 	iSegment "github.com/tokopedia/go-test/domain/segmentation/interfaces"
-	mSegment "github.com/tokopedia/go-test/domain/segmentation/model"
 )
 
 type Usecase struct {
-	campaignPostgres iCampaign.CampaignSQLRepository
-	campaignRedis    iCampaign.CampaignCacheRepository
-	segmentCassandra iSegment.SegmentationDBRepository
+	campaignSQL   iCampaign.CampaignSQLRepository
+	campaignCache iCampaign.CampaignCacheRepository
+	segmentDB     iSegment.SegmentationDBRepository
 }
 
-func New(campaignPostgres iCampaign.CampaignSQLRepository, campaignRedis iCampaign.CampaignCacheRepository, segmentCassanra iSegment.SegmentationDBRepository) *Usecase {
+func New(campaignSQL iCampaign.CampaignSQLRepository, campaignCache iCampaign.CampaignCacheRepository, segmentDB iSegment.SegmentationDBRepository) *Usecase {
 	return &Usecase{
-		campaignPostgres: campaignPostgres,
-		campaignRedis:    campaignRedis,
-		segmentCassandra: segmentCassanra,
+		campaignSQL:   campaignSQL,
+		campaignCache: campaignCache,
+		segmentDB:     segmentDB,
 	}
 }
 
 func (u *Usecase) CreateCampaign(param model.CampaignUcCreateCampaignParam) (model.CampaignUcCreateCampaignResult, error) {
-	createCampaignResult, err := u.campaignPostgres.CreateCampaignData(model.CampaignSQLRepoCreateCampaignDataParam{})
+	createCampaignResult, err := u.campaignSQL.CreateCampaignData(model.CampaignSQLRepoCreateCampaignDataParam{})
 	if err != nil {
 		return model.CampaignUcCreateCampaignResult{}, nil
 	}
 
 	if createCampaignResult.Campaign.NeedSegment {
-		segment, err := u.segmentCassandra.GetSegmentData(mSegment.SegmentDBRepoGetSegmentDataParam{})
+		//segment, err := u.segmentDB.GetSegmentData(mSegment.SegmentDBRepoGetSegmentDataParam{})
 		if err != nil {
 			return model.CampaignUcCreateCampaignResult{}, nil
 		}

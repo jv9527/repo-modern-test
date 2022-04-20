@@ -58,9 +58,9 @@ func TestUsecase_CreateCampaign(t *testing.T) {
 	mockCampaignSQLRepo := mockCampaign.NewMockCampaignSQLRepository(ctrl)
 
 	u := &Usecase{
-		campaignPostgres: mockCampaignSQLRepo,
-		campaignRedis:    mockCampaignCacheRepo,
-		segmentCassandra: mockSegmentDBRepo,
+		campaignSQL:   mockCampaignSQLRepo,
+		campaignCache: mockCampaignCacheRepo,
+		segmentDB:     mockSegmentDBRepo,
 	}
 
 	type args struct {
