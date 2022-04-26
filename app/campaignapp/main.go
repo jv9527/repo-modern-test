@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	dCampaign "github.com/tokopedia/go-test/domain/campaign/delivery/http"
@@ -27,6 +28,7 @@ func main() {
 	// register handlers
 	router := initHttpRouter(handlerCampaign)
 
+	log.Println("Start serving :9000")
 	http.ListenAndServe(":9000", router)
 }
 
