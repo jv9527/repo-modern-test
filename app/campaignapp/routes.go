@@ -5,7 +5,7 @@ import (
 	dCampaign "github.com/tokopedia/go-test/domain/campaign/delivery/http"
 )
 
-func initHttpRouter(campaignHandler dCampaign.Handler) *mux.Router {
+func initHttpRouter(campaignHandler *dCampaign.Handler) *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/v1/create/campaign", campaignHandler.CreateCampaign)

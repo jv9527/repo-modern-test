@@ -4,15 +4,15 @@ import (
 	"log"
 	"net/http"
 
+	iCampaign "github.com/tokopedia/go-test/domain/campaign/interfaces"
 	"github.com/tokopedia/go-test/domain/campaign/model"
-	uCampaign "github.com/tokopedia/go-test/domain/campaign/usecase"
 )
 
 type Handler struct {
-	usecaseCampaign uCampaign.Usecase
+	usecaseCampaign iCampaign.CampaignUsecase
 }
 
-func New(usecaseCampaign uCampaign.Usecase) *Handler {
+func New(usecaseCampaign iCampaign.CampaignUsecase) *Handler {
 	return &Handler{
 		usecaseCampaign: usecaseCampaign,
 	}

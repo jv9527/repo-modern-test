@@ -22,10 +22,10 @@ func main() {
 	usecaseCampaign := uCampaign.New(postgresCampaign, redisCampaign, cassandraSegmentation)
 
 	// init handlers
-	handlerCampaign := dCampaign.New(*usecaseCampaign)
+	handlerCampaign := dCampaign.New(usecaseCampaign)
 
 	// register handlers
-	router := initHttpRouter(*handlerCampaign)
+	router := initHttpRouter(handlerCampaign)
 
 	http.ListenAndServe(":9000", router)
 }
